@@ -1,0 +1,42 @@
+﻿@model DynamicForms.Models.ViewModels.QuoteRatingViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@* READ THIS
+    Don't judge my inline styles
+*@
+
+<form id="quote-form">
+@foreach (QuoteRating qr in Model.QuoteRatings) {
+    <h2>
+        @qr.Quote.Text
+    </h2>
+    <h3 style="text-align: right">
+        --@qr.Quote.Speaker
+    </h3>
+    <div style="width:100%; text-align: center; margin-bottom:30px; font-size: 2em;">
+    @foreach (Rating rating in Model.RatingOptions) {
+        <span style="margin: 0 5px;">
+            <input name="rating-@(qr.Quote.Id)" 
+                   id="rating-@(qr.Quote.Id)-option-@(rating.Id)"
+                   type="radio" value="@rating.Id"/>
+            <label for="rating-@(qr.Quote.Id)-option-@(rating.Id)">
+                @rating.Text
+            </label>
+        </span>
+    }
+    </div>
+    <hr/>
+}
+<div style="margin: 50px 0; text-align: center">
+    <input class="btn btn-success btn-lg" type="submit" value="Submit"/>
+</div>
+</form>
+
+@* READ THIS
+    Using thie Scrpts section is a way to inject javascript into the page
+*@
+@section Scripts {
+    <script src="~/js/dynamic-submit.js"></script>
+}
