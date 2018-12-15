@@ -7,22 +7,24 @@
     Don't judge my inline styles
 *@
 
-<form id="quote-form">
-@foreach (QuoteRating qr in Model.QuoteRatings) {
+<form method="post" asp-controller="Home" asp-action="Index">
+@for(var i=0; i<Model.QuoteRatings.Count; i++) {
+    <input type="hidden" asp-for="@Model.QuoteRatings[i].Quote.Id"/>
     <h2>
-        @qr.Quote.Text
+        @(Model.QuoteRatings[i].Quote.Text)
     </h2>
     <h3 style="text-align: right">
-        --@qr.Quote.Speaker
+        --@(Model.QuoteRatings[i].Quote.Speaker)
     </h3>
     <div style="width:100%; text-align: center; margin-bottom:30px; font-size: 2em;">
-    @foreach (Rating rating in Model.RatingOptions) {
+    @for(var j=0; j<Model.RatingOptions.Count; j++) {
         <span style="margin: 0 5px;">
-            <input name="rating-@(qr.Quote.Id)" 
-                   id="rating-@(qr.Quote.Id)-option-@(rating.Id)"
-                   type="radio" value="@rating.Id"/>
-            <label for="rating-@(qr.Quote.Id)-option-@(rating.Id)">
-                @rating.Text
+            <input asp-for="@Model.QuoteRatings[i].Rating.Id" 
+                   id=@($"rating-{i}-{j}")
+                   value="@(Model.RatingOptions[j].Id)"
+                   type="radio" />
+            <label for=@($"rating-{i}-{j}")>
+                @(Model.RatingOptions[j].Text)
             </label>
         </span>
     }
@@ -33,10 +35,3 @@
     <input class="btn btn-success btn-lg" type="submit" value="Submit"/>
 </div>
 </form>
-
-@* READ THIS
-    Using thie Scrpts section is a way to inject javascript into the page
-*@
-@section Scripts {
-    <script src="~/js/dynamic-submit.js"></script>
-}

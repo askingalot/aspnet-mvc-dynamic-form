@@ -25,12 +25,10 @@ namespace DynamicForms.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index([FromBody] QuoteRatingViewModel viewmodel) {
+        public IActionResult Index(QuoteRatingViewModel viewmodel) {
             // READ THIS
-
             // Put a breakpoint in this method and 
             //  look look at the value of 'viewmodel'
-
             // This is where we'd save the ratings
             //  if we wanted to do that sort of thing
 
