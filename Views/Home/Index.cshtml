@@ -8,6 +8,17 @@
 *@
 
 <form method="post" asp-controller="Home" asp-action="Index">
+
+@* READ THIS
+    The form fields are named such that MVC will understand how to bind them into a List
+    of QuoteRatings on the viewmodel when the form is posted.
+
+    Take a look at the discussion of binding to collections in the documentaton:
+    https://docs.microsoft.com/en-us/aspnet/core/mvc/models/model-binding?view=aspnetcore-2.2
+
+    Here's another good example
+    https://stackoverflow.com/questions/41873171/how-can-i-bind-an-array-with-asp-for-tag
+*@
 @for(var i=0; i<Model.QuoteRatings.Count; i++) {
     <input type="hidden" asp-for="@Model.QuoteRatings[i].Quote.Id"/>
     <h2>
